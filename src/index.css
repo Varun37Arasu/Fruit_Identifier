@@ -1,13 +1,297 @@
+@import url("https://fonts.googleapis.com/css2?family=Alkatra&family=Bree+Serif&family=Exo+2:ital,wght@1,600&family=Fruktur&family=Kaushan+Script&family=Lilita+One&family=Rajdhani:wght@300&family=Russo+One&display=swap");
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Lilita One", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #fbfccb;
+  scroll-behavior: auto;
+  overflow-x: hidden;
+  position: relative;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Navbar section */
+.navbar {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 10vh;
+  background-color: #feaa3d;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* font-size:2vw; */
+  font-size: 30px;
+}
+
+.navItems {
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+}
+
+.navItems:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+}
+
+/* End of navbar section */
+
+/* Hero section */
+
+.hero {
+  position: relative;
+  top: 10vh;
+  width: 100vw;
+  height: 1000px;
+  height: fit-content;
+  background: linear-gradient(
+    180deg,
+    rgba(252, 212, 71, 0.41) 0%,
+    rgba(240, 219, 163, 0) 100%
+  );
+  display: flex;
+  flex-direction: column;
+}
+
+.topPart {
+  position: relative;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.logo {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 200px;
+  padding: 20px 10px;
+  background-color: #f5a70adc;
+  border-radius: 100px;
+}
+
+.logoimg {
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  font-size: 55px;
+  color: #ff8b00;
+  position: relative;
+  display: inline-block;
+  left: 50px;
+}
+
+.FruitsRight {
+  width: 50%;
+}
+.FruitsRight img {
+  width: 100%;
+}
+
+.bottomPart {
+  position: relative;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.FruitsLeft {
+  position: relative;
+  bottom: 100%;
+  width: 55%;
+}
+
+.Leaf {
+  position: relative;
+  top: 140px;
+  left: -20px;
+  width: 10%;
+  height: 10%;
+}
+
+/* End of Hero section */
+
+/* Content section */
+
+.content {
+  width: 100vw;
+  position: relative;
+  margin-top: 100px;
+  top: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leaves {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 150px;
+  height: max-content;
+}
+
+.left {
+  /* display: inline-block; */
+  width: 200px;
+  transform: rotate(180deg);
+}
+.left img {
+  width: 15%;
+}
+.right {
+  width: 200px;
+}
+
+.right img {
+  width: 15%;
+}
+
+.card {
+  width: fit-content;
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.Question {
+  text-align: center;
+  font-size: 50px;
+  color: #ff8b00;
+}
+
+.Answer {
+  max-width: 700px;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.btn {
+  background: #ff8b00;
+  border-radius: 12px;
+  padding: 10px 30px;
+  font-family: "Lilita One", cursive;
+  color: white;
+  border: 1px solid orange;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.trynow {
+  margin-top: 100px;
+  width: 500px;
+  height: 100px;
+  font-size: 60px;
+  border-radius: 30px;
+}
+/* End of content section */
+
+/* Footer Section */
+.footer {
+  position: relative;
+  top: 10vh;
+  width: 100vw;
+  height: 10vh;
+  background-color: #feaa3d;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 30px;
+}
+/* End of footer section */
+
+.pageHeading {
+  font-size: 80px;
+  text-align: center;
+  color: #ff8b00;
+  margin-top: 50px;
+  margin-bottom: 150px;
+}
+
+.aboutContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  top: 10vh;
+  /* gap: 100px; */
+}
+
+.Question1 {
+  text-align: center;
+  font-size: 50px;
+  color: #ff8b00;
+  margin: 25px auto;
+}
+
+.Answer1 {
+  max-width: 800px;
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.list {
+  /* display: flex; */
+  flex-direction: column;
+  position: relative;
+  /* left: 20%; */
+  width: fit-content;
+  font-size: 20px;
+}
+
+.items {
+  margin-top: 10px;
+  /* list-style-type: decimal; */
+  list-style-type: none;
+  display: block;
+  /* padding: 5px; */
+  /* word-wrap: break-word; */
+}
+.subHeading {
+  text-align: left;
+  font-size: 30px;
+  color: #ff8b00;
+}
+
+.card1 {
+  max-width: 1000px;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.desc {
 }
