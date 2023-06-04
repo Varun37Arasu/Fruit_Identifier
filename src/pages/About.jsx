@@ -1,28 +1,28 @@
 import React from "react";
 import Heading from "../Components/Heading";
 import Card from "../Components/Card";
-import {faq} from "../Components/faq";
-import { data } from "../Components/data";
+import { faq } from "../Components/faq";
+import { LeftLeaves, RightLeaves } from "../Components/Leaves";
 
 const About = () => {
   return (
     <>
-      <div className="aboutContainer">
-        <Heading title="What our project does?" />
+      <div className="content">
+        <LeftLeaves count="10"/>
+        <div className="aboutContainer">
+          <Heading title="What our project does?" />
 
-        {console.log(data[0])}
-        {faq.map((data, index) => {
-          return <Card question={data.question} brief={data.brief} answer={data.answer} />;
-        })}
-
-        {
-          // data.map((data,index)=>{
-          //     console.log(data);
-          //     return(<p>{data.eventName}</p>)
-          //     (<>
-          //     </>);
-          // })
-        }
+          {faq.map((data, index) => {
+            return (
+              <Card
+                question={data.question}
+                brief={data.brief}
+                answer={data.answer}
+              />
+            );
+          })}
+        </div>
+        <RightLeaves count="10" />
       </div>
     </>
   );

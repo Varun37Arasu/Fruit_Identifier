@@ -13,11 +13,9 @@ const Card = (props) => {
               <>
                 <li className="items">
                   <span className="subHeading"> {items.subHeading}</span>
-                    {items.description}
-                <p className="desc">
-                </p>
+                  {items.description}
+                  <p className="desc"></p>
                 </li>
-                
               </>
             );
           })}
@@ -25,16 +23,6 @@ const Card = (props) => {
           {console.log(data)}
         </ul>
       </div>
-      {/* <h2 className="Question1">What it does?</h2>
-        <p className="Answer1">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas
-          corrupti praesentium earum ipsum impedit nihil doloremque consequatur,
-          quis, sapiente incidunt aliquam eaque molestiae ex Voluptas corrupti
-          praesentium earum ipsum impedit nihil doloremque consequatur, quis,
-          sapiente incidunt aliquam eaque molestiae ex inventore nulla sed
-          voluptates reprehenderit facere!
-        </p>
-      </div> */}
     </>
   );
 };

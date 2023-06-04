@@ -9,7 +9,7 @@ const faq = [
     brief: "Our fruit identification system consists of several key steps:",
     answer: [
       {
-        subHeading: "Data Collection :",
+        subHeading: "Data Collection : ",
         description:
           "We gather a diverse dataset of fruit images, encompassing various species and variations.",
       },
