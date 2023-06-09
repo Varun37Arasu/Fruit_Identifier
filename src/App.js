@@ -7,21 +7,23 @@ import Contact from './pages/Contact';
 import Results from './pages/Results';
 import { Routes, Route } from 'react-router-dom';
 import ScrollToTop from './Components/ScrollToTop';
+import Model from './Components/FruitClassifier';
 
 
 function App() {
   return (
     <div className="App">
       <ScrollToTop/>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Routes>
         <Route path='/' Component={LandingPage}></Route>
         <Route path='/about' Component={About}></Route>
         <Route path='/usage' Component={Usage}></Route>
         <Route path='/results' Component={Results}></Route>
         <Route path='/contact' Component={Contact}></Route>
+        <Route path='/model' Component={Model}></Route>
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }

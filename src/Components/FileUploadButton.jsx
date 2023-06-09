@@ -1,12 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Img from "../images/img.png";
 
 function FileUploadButton() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [message, setMessage] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
+    console.log(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -20,38 +22,63 @@ function FileUploadButton() {
     fileInputRef.current.click();
   };
 
+  // const handleSubmit =   (event) => {
+  //   console.log("Submitting");
+  //   // console.log("ref : ",fileInputRef.current)
+  //   event.preventDefault();
+
+  //   if (selectedImage) {
+  //     const formData = new FormData();
+  //     // formData.append("image", selectedImage);
+  //     formData.append('image', selectedImage);
+
+  //     console.log("formdata",formData.get('image'))
+  //     const response =  fetch("http://127.0.0.1:5000/classify", {
+  //       method: "POST",
+  //       body: formData,
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       }
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         // Handle the API response data
+  //         console.log(data);
+  //         const fruitName = data.fruit_name;
+  //         console.log("Fruit Name:", fruitName);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // };
+
   const handleSubmit = (event) => {
-    console.log("Submitting");
     event.preventDefault();
-    // Perform the API request to submit the image
-    if (selectedImage) {
-      // Replace 'apiEndpoint' with the actual API endpoint
-      fetch('apiEndpoint', {
-        method: 'POST',
-        body: selectedImage,
-        headers: {
-          'Content-Type': 'image/*',
-        },
+
+    const formData = new FormData(event.target);
+    const message = formData.get("message");
+
+    fetch("http://127.0.0.1:5000/message", {
+      method: "POST",
+      body: new URLSearchParams(formData),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        setMessage(data);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the API response data
-          console.log(data);
-        })
-        .catch((error) => {
-          // Handle the API request error
-          console.error(error);
-        });
-    }
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
     <>
-    
-      <button
-        className="uploadButton"
-        onClick={handleClick}
-      >
+      <form onSubmit={handleSubmit}>
+        {/* <input type="text" name="message" />
+        <button type="submit">Send Message</button> */}
+      </form>
+      <button className="uploadButton" onClick={handleClick}>
         {selectedImage ? (
           <>
             <div className="preview">
@@ -61,7 +88,6 @@ function FileUploadButton() {
                 src={selectedImage}
                 className="previewImage"
                 alt="Selected"
-                style={{}}
               />
             </div>
           </>
@@ -80,10 +106,10 @@ function FileUploadButton() {
         style={{ display: "none" }}
         ref={fileInputRef}
       />
-     {/* {selectedImage && (
-     <button type="submit" className="btn trynow" onClick={handleSubmit}>Identify !</button>
-      )} */}
-     <button type="submit" className="btn trynow" onClick={handleSubmit}>Identify !</button>
+      <button type="submit" className="btn trynow" onClick={handleSubmit}>
+        Identify !
+      </button>
+      {/* </form> */}
     </>
   );
 }
