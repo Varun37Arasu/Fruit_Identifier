@@ -34,9 +34,10 @@
 #     app.run(port=3002, debug=True)
 
 
+
+
+
 # # from flask import Flask
-
-
 # # app = Flask(__name__)
 
 
@@ -58,6 +59,7 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024
 CORS(app) 
 
 
@@ -67,7 +69,12 @@ model = keras.models.load_model('model.h5')
 # Define the class labels
 class_labels = ['apple', 'banana', 'orange'] 
 
-app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024
+
+
+@app.route("/")
+def my_index():
+    return flask.render_template("index.html",token="hello")
+
 
 @app.route('/classify', methods=['POST','GET']) 
 def classify_fruit():
@@ -76,7 +83,7 @@ def classify_fruit():
 
     # return jsonify({'Data': file})
     if 'image' not in request.files:
-        return jsonify({'error': request.files})
+        return jsonify({'error1': request.files})
 
 
     # Read the image file from the request
