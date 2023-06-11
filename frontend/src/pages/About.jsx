@@ -1,7 +1,7 @@
 import React from "react";
 import Heading from "../Components/Heading";
 import Card from "../Components/Card";
-import { faq } from "../Components/faq";
+import { faq } from "../Components/dataJSON/faq";
 import { LeftLeaves, RightLeaves } from "../Components/Leaves";
 
 const About = () => {
@@ -14,7 +14,7 @@ const About = () => {
 
           {faq.map((data, index) => {
             return (
-              <Card
+              <Card key={index}
                 question={data.question}
                 brief={data.brief}
                 answer={data.answer}

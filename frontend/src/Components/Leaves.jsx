@@ -1,7 +1,5 @@
 import React from "react";
 import Leaf from "../images/leaf.png";
-import Apple from "../images/apple.png";
-import Fruit from "../images/Fruits_Left.png";
 
 const LeftLeaves = ({ count }) => {
   const divs = Array.from({ length: count }, (_, index) => (

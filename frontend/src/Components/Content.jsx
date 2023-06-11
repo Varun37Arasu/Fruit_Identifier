@@ -36,7 +36,7 @@ const Content = () => {
           <Link to="/usage">
             <button className="btn">More</button>
           </Link>
-          <Link to="/usage">
+          <Link className="linkResult" to="/usage">
             <button className="btn trynow">Try Now !</button>
           </Link>
         </div>

@@ -1,115 +1,94 @@
-# from flask import Flask, render_template, request
-# from keras.models import load_model
-# from keras_preprocessing import image
-# import info
-# import numpy as np
-
-# app = Flask(__name__)
-
-# model = load_model('src/models/model4.h5')
-# class_names = info.class_names
-# features = info.features
-
-
-# @app.route('/', methods=['GET'])
-# def hello_world():
-#     return render_template('index.html')
-
-
-# @app.route('/predict', methods=['POST'])
-# def predict():
-#     imagefile = request.files['imagefile']
-#     image_path = './images/' + imagefile.filename
-#     imagefile.save(image_path)
-#     img = image.load_img(image_path, target_size=(224, 224, 3))
-#     x = image.img_to_array(img)
-#     x = np.expand_dims(x, axis=0)
-#     images = np.vstack([x])
-#     pred = model.predict(images, batch_size=32)
-#     return render_template('index.html', type=class_names[np.argmax(pred)],
-#                            prediction=features[class_names[np.argmax(pred)]])
-
-
-# if __name__ == '__main__':
-#     app.run(port=3002, debug=True)
-
-
-
-
-
-# # from flask import Flask
-# # app = Flask(__name__)
-
-
-# # @app.route("/api",methods=['GET'])
-# # def index():
-# #     return{
-# #         'tutorial':"FR App"
-# #     }
-
-# # if __name__ == "__main__":
-# #     app.run();
-
-
+import flask
 import os
+import time
 from flask import Flask, request, jsonify
-from flask_cors import CORS 
 from tensorflow import keras
 from tensorflow.keras.preprocessing import image
 import numpy as np
-
-app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024
-CORS(app) 
-
+from flask_cors import CORS
 
 # Load the trained model
 model = keras.models.load_model('model.h5')
 
 # Define the class labels
-class_labels = ['apple', 'banana', 'orange'] 
+class_names = ['apple', 'banana', 'beetroot', 'bell pepper', 'cabbage',
+               'capsicum', 'carrot', 'cauliflower', 'chilli pepper',
+               'corn', 'cucumber', 'eggplant', 'garlic', 'ginger',
+               'grapes', 'jalepeno', 'kiwi', 'lemon', 'lettuce',
+               'mango', 'onion', 'orange', 'paprika', 'pear', 'peas',
+               'pineapple', 'pomegranate', 'potato', 'raddish',
+               'soy beans', 'spinach', 'sweetcorn', 'sweetpotato',
+               'tomato', 'turnip', 'watermelon']
+
+app = Flask("__main__")
+CORS(app)
 
 
-
-@app.route("/")
-def my_index():
-    return flask.render_template("index.html",token="hello")
-
-
-@app.route('/classify', methods=['POST','GET']) 
+@app.route('/classify', methods=['POST', 'GET'])
 def classify_fruit():
-    # Check if an image file was sent in the request
-    file = request.files
-
-    # return jsonify({'Data': file})
-    if 'image' not in request.files:
-        return jsonify({'error1': request.files})
-
-
-    # Read the image file from the request
     img = request.files['image']
-    img_path = os.path.join('uploads', img.filename)
+    image_path1 = os.path.join('../frontend/public/uploads', img.filename)
+    image_path = os.path.join('uploads', img.filename)
+    img.save(image_path)
+    img = image.load_img(image_path, target_size=(224, 224, 3))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    images = np.vstack([x])
+    pred = model.predict(images, batch_size=32)
 
-    # Save the image file to a local directory
-    img.save(img_path)
-
-    # Preprocess the image
-    img = image.load_img(img_path, target_size=(224,224))  # Adjust target size if needed
-    img_array = image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0)
-    img_array /= 255.0
-
-    # Make predictions
-    predictions = model.predict(img_array)
-    predicted_class_index = np.argmax(predictions[0])
-    predicted_class = class_labels[predicted_class_index]
-
-    # Delete the saved image file
-    os.remove(img_path)
+    # os.remove(image_path)
 
     # Return the predicted fruit class name
-    return jsonify({'fruit_name': predicted_class})
+    print(class_names[np.argmax(pred)])
+    img.save(image_path1)
+    return (jsonify({"fruitname": class_names[np.argmax(pred)]}))
 
-if __name__ == '__main__':
+
+uploads_dir = "uploads"
+
+
+@app.route('/images', methods=['GET'])
+def get_images():
+    # Get the most recent image file in the uploads directory
+    images = [filename for filename in os.listdir(
+        uploads_dir) if filename.endswith(('.jpg', '.jpeg', '.png', '.gif'))]
+    images.sort(key=lambda x: os.path.getmtime(os.path.join(uploads_dir, x)))
+
+    if images:
+        # Return the URL of the most recent image
+        filename = images[-1]
+        image_url = f"{filename}"
+        return jsonify({"image_url": image_url})
+    else:
+        return jsonify({"image_url": ""})
+
+
+del_dir = "../frontend/public/uploads"
+# Cleanup function to remove files in the uploads folder
+def cleanup_uploads_folder():
+    while True:
+        time.sleep(20)  # Wait for 10 seconds
+        for filename in os.listdir(del_dir):
+            file_path = os.path.join(del_dir, filename)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+
+# Start the cleanup mechanism in a separate thread
+import threading
+cleanup_thread = threading.Thread(target=cleanup_uploads_folder) 
+cleanup_thread.start()
+
+
+
+@app.route('/clear-uploads-folder', methods=['POST'])
+def clear_uploads_folder():
+    for filename in os.listdir(uploads_dir):
+        file_path = os.path.join(uploads_dir, filename)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+
+    return jsonify({"message": "Uploads folder cleared successfully."})
+
+
+if __name__ == "__main__":
     app.run(debug=True)
-
