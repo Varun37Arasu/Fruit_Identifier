@@ -5,6 +5,8 @@ import { LeftLeaves, RightLeaves } from "../Components/Leaves";
 import vinay from "../images/Vinay.jpg";
 import aditya from "../images/aditya.jpg";
 import dev1 from "../images/dev1.png";
+import varun from "../images/varun.jpg";
+import tushar from "../images/tushar.jpg";
 
 const Contact = () => {
   return (
@@ -15,7 +17,7 @@ const Contact = () => {
           <Heading title="Get In touch" />
           <ContactCard
             name="Varun Urs M S"
-            photo={dev1}
+            photo={varun}
             githublink="https://github.com/VarunUrs4"
             linkedinlink="https://www.linkedin.com/in/varun-urs-m-s-060706225/"
             instagramlink="https://www.instagram.com/varun_urs_7/"
@@ -31,11 +33,11 @@ const Contact = () => {
           />
           <ContactCard
             name="Tushar B T"
-            photo={dev1}
-            githublink=""
-            linkedinlink=""
-            instagramlink=""
-            maillink="varunurs4589@gmail.com"
+            photo={tushar}
+            githublink="https://github.com/Tushar150802"
+            linkedinlink="http://linkedin.com/in/tushar-bt-399a0a259"
+            instagramlink="https://instagram.com/tushar._.bt?utm_medium=copy_link6"
+            maillink="tushar.cs20@bmsce.ac.in"
           />
           <ContactCard
             name="Aditya B N"

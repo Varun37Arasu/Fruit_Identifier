@@ -1,3 +1,4 @@
+import threading
 import flask
 import os
 import time
@@ -8,7 +9,7 @@ import numpy as np
 from flask_cors import CORS
 
 # Load the trained model
-model = keras.models.load_model('model.h5')
+model = keras.models.load_model('models/FV.h5')
 
 # Define the class labels
 class_names = ['apple', 'banana', 'beetroot', 'bell pepper', 'cabbage',
@@ -65,6 +66,8 @@ def get_images():
 
 del_dir = "../frontend/public/uploads"
 # Cleanup function to remove files in the uploads folder
+
+
 def cleanup_uploads_folder():
     while True:
         time.sleep(20)  # Wait for 10 seconds
@@ -73,11 +76,10 @@ def cleanup_uploads_folder():
             if os.path.isfile(file_path):
                 os.remove(file_path)
 
-# Start the cleanup mechanism in a separate thread
-import threading
-cleanup_thread = threading.Thread(target=cleanup_uploads_folder) 
-cleanup_thread.start()
 
+# Start the cleanup mechanism in a separate thread
+cleanup_thread = threading.Thread(target=cleanup_uploads_folder)
+cleanup_thread.start()
 
 
 @app.route('/clear-uploads-folder', methods=['POST'])
@@ -92,3 +94,4 @@ def clear_uploads_folder():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
