@@ -1,5 +1,4 @@
 import threading
-import flask
 import os
 import time
 from flask import Flask, request, jsonify
@@ -9,7 +8,7 @@ import numpy as np
 from flask_cors import CORS
 
 # Load the trained model
-model = keras.models.load_model('models/FV.h5')
+model = keras.models.load_model('models/model.h5')
 
 # Define the class labels
 class_names = ['apple', 'banana', 'beetroot', 'bell pepper', 'cabbage',
